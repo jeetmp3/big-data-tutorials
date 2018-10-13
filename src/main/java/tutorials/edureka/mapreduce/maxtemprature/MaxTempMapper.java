@@ -6,6 +6,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author Jitendra Singh.
@@ -14,17 +15,14 @@ public class MaxTempMapper extends Mapper<LongWritable, Text, IntWritable, IntWr
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        if (value != null) {
-            String[] touples = value.toString().split(" ");
-            if (touples.length > 1) {
-                try {
-                    context.write(
-                            new IntWritable(Integer.parseInt(touples[0])),
-                            new IntWritable(Integer.parseInt(touples[1]))
-                    );
-                } catch (Exception ex) {
-                }
-            }
-        }
+
+        String[] tuple = value.toString().split(" ");
+        int year = Integer.parseInt(tuple[0]);
+        int temp = Integer.parseInt(tuple[1]);
+        context.write(
+                new IntWritable(year),
+                new IntWritable(temp)
+        );
+
     }
 }

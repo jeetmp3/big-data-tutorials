@@ -25,7 +25,7 @@ public class CalculateMaxTempApp {
         job.setMapperClass(MaxTempMapper.class);
         job.setReducerClass(MaxTempReducer.class);
 
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(IntWritable.class);
         job.setOutputValueClass(IntWritable.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
